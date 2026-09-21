@@ -15,7 +15,7 @@
 
 The package version is defined by [`VERSION`](VERSION). The current version is `1.3.1`.
 
-This document covers how to build and use the package from this repository. The instructions match the current repository contents.
+This document covers how to build and use the package from this repository.
 
 ### 2. Requirements
 
