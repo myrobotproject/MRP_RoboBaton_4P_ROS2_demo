@@ -1,0 +1,9 @@
+# The package lib directory supplies ROS2/Python forwarding libraries missing on the target; X5 ISP transitive dependencies resolve from system library directories.
+if [ -d "$AMENT_CURRENT_PREFIX/lib/@PROJECT_NAME@" ]; then
+  ament_prepend_unique_value LD_LIBRARY_PATH "$AMENT_CURRENT_PREFIX/lib/@PROJECT_NAME@"
+fi
+for robobaton_system_lib_dir in /usr/lib /usr/lib/sensor; do
+  if [ -d "$robobaton_system_lib_dir" ]; then
+    ament_prepend_unique_value LD_LIBRARY_PATH "$robobaton_system_lib_dir"
+  fi
+done

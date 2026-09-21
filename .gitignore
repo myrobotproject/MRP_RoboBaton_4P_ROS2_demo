@@ -1,0 +1,6 @@
+# 本地构建和测试输出。
+build/
+log/
+install/
+1.ros2_build/
+*.pyc

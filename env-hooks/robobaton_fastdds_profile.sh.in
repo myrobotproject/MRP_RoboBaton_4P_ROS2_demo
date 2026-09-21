@@ -1,0 +1,10 @@
+# Four raw NV12 streams at high frame rates use Fast DDS shared-memory transport to avoid DDS history overflow from local UDP-copy bandwidth.
+# Package-level ament setup provides AMENT_CURRENT_PREFIX; sourcing this hook directly from a colcon merged install provides only COLCON_CURRENT_PREFIX.
+robobaton_current_prefix="${COLCON_CURRENT_PREFIX:-${AMENT_CURRENT_PREFIX:-}}"
+robobaton_fastdds_profile="$robobaton_current_prefix/share/@PROJECT_NAME@/config/fastdds/robobaton_shm.xml"
+if [ -n "$robobaton_current_prefix" ] && [ -f "$robobaton_fastdds_profile" ]; then
+  export FASTDDS_DEFAULT_PROFILES_FILE="$robobaton_fastdds_profile"
+  export FASTRTPS_DEFAULT_PROFILES_FILE="$robobaton_fastdds_profile"
+fi
+unset robobaton_fastdds_profile
+unset robobaton_current_prefix

@@ -1,0 +1,31 @@
+robobaton_sensors_node:
+  ros__parameters:
+    enable_camera: true
+    enable_imu: true
+
+    diagnostics:
+      rate_metrics_enabled: false
+      rate_log_period_ms: 1000
+      rate_run_id: ""
+
+    camera:
+      camera_mask: 15
+      fps: 30
+      rotate_degrees: 0
+      frame_set_max_skew_ns: 10000000
+      frame_set_timeout_ms: 100
+      queue_capacity: 4
+      queue_policy: "block"
+      publish_camera_info: true
+      image_encoding: "nv12"
+      publish_compressed_image: true
+      compressed_jpeg_quality: 80
+      frame_id_prefix: "robobaton_cam"
+      trigger_mode: "software_gpio"
+
+    imu:
+      sample_rate_hz: 1000
+      read_mode: "sensor_timestamp_fifo"
+      fifo_watermark_samples: 1
+      frame_id: "robobaton_imu_link"
+      publish_temperature: true

@@ -1,0 +1,10 @@
+<library path="robobaton_nv12_compressed_image_transport">
+  <class
+    name="robobaton_4p_ros2_demo/compressed_pub"
+    type="robobaton_4p_ros2_demo::Nv12CompressedPublisher"
+    base_class_type="image_transport::PublisherPlugin">
+    <description>
+      Publishes NV12 sensor_msgs/Image frames as JPEG sensor_msgs/CompressedImage messages.
+    </description>
+  </class>
+</library>
