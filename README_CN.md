@@ -1,5 +1,23 @@
 # RoboBaton 4P ROS2 Demo
 
+> 交叉编译请看官网手册文档 https://4p-doc-en.readthedocs.io/en/latest/development/open-source-build.html
+
+注意在第五节的《5. 编译 ROS2 demo》 的指令：
+```
+CMAKE_BUILD_PARALLEL_LEVEL=4 script/build_x5_ros2.sh \
+  --cross-root "$X5_CROSS_ROOT" --parallel-workers 1
+```
+需要改成
+
+```
+EXTRA_PREFIX="" CMAKE_BUILD_PARALLEL_LEVEL=4 \
+  bash script/build_x5_ros2.sh \
+  --cross-root "$X5_CROSS_ROOT" \
+  --build-root 1.ros2_build \
+  --parallel-workers 1
+```
+即可顺利完成编译。
+
 ## 中文使用说明
 
 ### 1. 简介
@@ -95,10 +113,20 @@ python3 script/verify_install.py 1.ros2_build/install
 
 ### 5. 部署到目标板
 
-将完整的 merged install 目录复制到目标板。例如：
+将完整的 merged install 目录（交叉编译的目录下的一个文件夹）打包复制到目标板。例如：
 
 ```bash
-rsync -a 1.ros2_build/install/ user@target:/root/ros2_demo/install/
+cd 1.ros2_build
+tar -zcvf install_ros2Demo.tar install
+# ssh in 4p bord
+mkdir -p /root/ros2_demo/
+
+# in corss build path:copy to 4p board
+scp ./install_ros2Demo.tar root@target_IP:/root/ros2_demo/
+
+# 4p board
+cd /root/ros2_demo
+tar -xvf install_ros2Demo.tar
 ```
 
 目标板上的安装路径可以不同；下面以 `/root/ros2_demo/install` 为例。部署后加载运行环境：
@@ -214,8 +242,8 @@ IMU 话题说明：
 ```bash
 ros2 node list --no-daemon
 ros2 topic list --no-daemon
-ros2 topic info /robobaton/imu/data --verbose
-ros2 topic echo /robobaton/imu/data --once
+ros2 topic hz /robobaton/imu/data 
+ros2 topic hz /robobaton/cam0/image_raw
 ```
 
 ### 9. 参数

@@ -1,5 +1,26 @@
 # RoboBaton 4P ROS2 Demo
 
+> For cross-compilation instructions, see the [official documentation](https://4p-doc-en.readthedocs.io/en/latest/development/open-source-build.html).
+
+In Section 5, "Build the ROS2 demo," replace:
+
+```bash
+CMAKE_BUILD_PARALLEL_LEVEL=4 script/build_x5_ros2.sh \
+  --cross-root "$X5_CROSS_ROOT" --parallel-workers 1
+```
+
+with:
+
+```bash
+EXTRA_PREFIX="" CMAKE_BUILD_PARALLEL_LEVEL=4 \
+  bash script/build_x5_ros2.sh \
+  --cross-root "$X5_CROSS_ROOT" \
+  --build-root 1.ros2_build \
+  --parallel-workers 1
+```
+
+This command completes the build successfully.
+
 ## User Guide
 
 ### 1. Overview
@@ -95,10 +116,20 @@ python3 script/verify_install.py 1.ros2_build/install
 
 ### 5. Deploy to the Target
 
-Copy the complete merged install to the target. For example:
+Package and copy the complete merged install directory (the `install` folder in the cross-build output directory) to the target. For example:
 
 ```bash
-rsync -a 1.ros2_build/install/ user@target:/root/ros2_demo/install/
+cd 1.ros2_build
+tar -zcvf install_ros2Demo.tar install
+# On the 4P board over SSH
+mkdir -p /root/ros2_demo/
+
+# In the cross-build directory: copy the archive to the 4P board
+scp ./install_ros2Demo.tar root@target_IP:/root/ros2_demo/
+
+# On the 4P board
+cd /root/ros2_demo
+tar -xvf install_ros2Demo.tar
 ```
 
 The target path is configurable; the commands below use `/root/ros2_demo/install` as an example. Load the runtime environment after deployment:
@@ -214,8 +245,8 @@ Inspect nodes and topics:
 ```bash
 ros2 node list --no-daemon
 ros2 topic list --no-daemon
-ros2 topic info /robobaton/imu/data --verbose
-ros2 topic echo /robobaton/imu/data --once
+ros2 topic hz /robobaton/imu/data
+ros2 topic hz /robobaton/cam0/image_raw
 ```
 
 ### 9. Parameters
