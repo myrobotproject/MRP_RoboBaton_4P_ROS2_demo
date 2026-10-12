@@ -1,25 +1,6 @@
 # RoboBaton 4P ROS2 Demo
 
-> For cross-compilation instructions, see the [official documentation](https://4p-doc-en.readthedocs.io/en/latest/development/open-source-build.html).
-
-In Section 5, "Build the ROS2 demo," replace:
-
-```bash
-CMAKE_BUILD_PARALLEL_LEVEL=4 script/build_x5_ros2.sh \
-  --cross-root "$X5_CROSS_ROOT" --parallel-workers 1
-```
-
-with:
-
-```bash
-EXTRA_PREFIX="" CMAKE_BUILD_PARALLEL_LEVEL=4 \
-  bash script/build_x5_ros2.sh \
-  --cross-root "$X5_CROSS_ROOT" \
-  --build-root 1.ros2_build \
-  --parallel-workers 1
-```
-
-This command completes the build successfully.
+[RoboBaton 4P Camera Product Manual](https://4p-doc-en.readthedocs.io/en/latest/index.html)
 
 ## User Guide
 

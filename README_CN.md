@@ -1,22 +1,8 @@
 # RoboBaton 4P ROS2 Demo
 
-> 交叉编译请看官网手册文档 https://4p-doc-en.readthedocs.io/en/latest/development/open-source-build.html
+[RoboBaton 4P相机产品手册官网](https://4p-doc-en.readthedocs.io/en/latest/index.html)
 
-注意在第五节的《5. 编译 ROS2 demo》 的指令：
-```
-CMAKE_BUILD_PARALLEL_LEVEL=4 script/build_x5_ros2.sh \
-  --cross-root "$X5_CROSS_ROOT" --parallel-workers 1
-```
-需要改成
 
-```
-EXTRA_PREFIX="" CMAKE_BUILD_PARALLEL_LEVEL=4 \
-  bash script/build_x5_ros2.sh \
-  --cross-root "$X5_CROSS_ROOT" \
-  --build-root 1.ros2_build \
-  --parallel-workers 1
-```
-即可顺利完成编译。
 
 ## 中文使用说明
 

@@ -139,6 +139,7 @@ set +u
 # shellcheck disable=SC1090
 source "${CROSS_ENV_SCRIPT}"
 set -u
+EXTRA_PREFIX="${EXTRA_PREFIX:-}"
 
 colcon_args=(
   --log-base "${LOG_BASE}"
